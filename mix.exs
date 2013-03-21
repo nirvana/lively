@@ -19,7 +19,6 @@ defmodule Lively.Mixfile do
   defp deps do 
 	[ 
 		{:couchie, github: "n1rvana/couchie"},
- 		{:jsx,  github: "talentdeficit/jsx"}
 	]
   end
 end
