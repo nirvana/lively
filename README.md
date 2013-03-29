@@ -3,20 +3,6 @@ lively
 
 Lively manages a collection of dynamically changing elixir modules at runtime.
 
-Modules are stored in a database (currently Couchbase 2.0). 
-
-Why store your code in a database?  
-
-This allows you to have a fully distributed platform, of homogenous servers, such that
-to add capacity you just spin up a new server. This removes the step of deploying 
-application code to every server. This way you can have an unlimited number of applications
-with complex dependancies without the need for operations people to keep things going.  
-Effectively it removes the deployment step for a distributed web platform, as every server
-can fetch app code from the database and start serving requests immediately.
-
-Why not store your code in a database?  You still have dependencies and possibly complexity,
-but instead of depending on files being on a specific machine, you're depending on records 
-being in the db.  This might prove to be much worse!
 
 ## Module format at rest
 
@@ -64,4 +50,38 @@ Jose's example:
 	# Make this module callable by other applications and processes under the previously determined
 	Module.create module, contents, []  name.
 ```
+
+
+purging old code:
+
+delete(Module) -> boolean()
+
+Types:
+
+Module = module()
+Removes the current code for Module, that is, the current code for Module is made old. This means that processes can continue to execute the code in the module, but that no external function calls can be made to it.
+
+Returns true if successful, or false if there is old code for Module which must be purged first, or if Module is not a (loaded) module.
+
+purge(Module) -> boolean()
+
+Types:
+
+Module = module()
+Purges the code for Module, that is, removes code marked as old. If some processes still linger in the old code, these processes are killed before the code is removed.
+
+Returns true if successful and any process needed to be killed, otherwise false.
+
+soft_purge(Module) -> boolean()
+
+Types:
+
+Module = module()
+Purges the code for Module, that is, removes code marked as old, but only if no processes linger in it.
+
+Returns false if the module could not be purged due to processes lingering in old code, otherwise true.
+
+
+
+
 
