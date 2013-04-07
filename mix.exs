@@ -18,7 +18,8 @@ defmodule Lively.Mixfile do
   # { :foobar, "0.1", git: "https://github.com/elixir-lang/foobar.git" }
   defp deps do 
 	[ 
-		{:couchie, github: "nirvana/couchie"}
+    {:couchie, github: "nirvana/couchie"},
+    {:amnesic, github: "nirvana/amnesic"}     
 	]
   end
 end
