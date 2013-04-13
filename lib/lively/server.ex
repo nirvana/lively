@@ -7,8 +7,8 @@ defmodule Lively.Server do
   
    """
    
-  def init(context) do
-    { :ok, context }
+  def init(state) do
+    { :ok, state }
   end
 
   @doc """
